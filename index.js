@@ -35,7 +35,7 @@ async function run(suggestion, rangeStart, rangeEnd) {
       },
       owner: "rvantonder",
       repo: "silly-test-repo", // TODO GITHUB_REPOSITORY https://docs.github.com/en/actions/configuring-and-managing-workflows/using-environment-variables
-      pull_number: prNum.toString(),
+      pull_number: prNum,
       body: body,
       commit_id: sha,
       path: "test.go",
