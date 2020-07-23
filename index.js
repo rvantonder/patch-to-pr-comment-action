@@ -7,13 +7,15 @@ const ev = JSON.parse(
 )
 const prNum = ev.pull_request.number
 
-const sha = JSON.parse(
-  fs.readFileSync(process.env.GITHUB_SHA, 'utf8')
-)
+console.log('pr ' + prNum)
 
-const token = JSON.parse(
-  fs.readFileSync(process.env.GITHUB_TOKEN, 'utf8')
-)
+const sha = process.env.GITHUB_SHA
+
+console.log('sha ' + sha)
+
+const token = process.env.GITHUB_TOKEN
+
+console.log('token ' + token)
 
 async function run(suggestion, rangeStart, rangeEnd) {
   const open = "```suggestion";
@@ -32,7 +34,7 @@ async function run(suggestion, rangeStart, rangeEnd) {
         previews: ["comfort-fade"]
       },
       owner: "rvantonder",
-      repo: "silly-test-repo",
+      repo: "silly-test-repo", // TODO GITHUB_REPOSITORY https://docs.github.com/en/actions/configuring-and-managing-workflows/using-environment-variables
       pull_number: prNum.toString(),
       body: body,
       commit_id: sha,
