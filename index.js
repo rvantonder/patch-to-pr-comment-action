@@ -9,7 +9,9 @@ const prNum = ev.pull_request.number
 
 console.log('pr ' + prNum)
 
-const sha = process.env.GITHUB_SHA
+// https://github.community/t/github-sha-isnt-the-value-expected/17903/2
+//const sha = process.env.GITHUB_SHA
+const sha = process.env.PR_HEAD_SHA
 
 console.log('sha ' + sha)
 
