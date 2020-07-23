@@ -1,0 +1,11 @@
+name: PR Patch Commenter
+description: Make code change suggestions on PR comments
+author: Rijnard van Tonder
+
+inputs:
+    patch:
+        description: Path to a patch to use for making change suggestions
+
+runs:
+    using: 'node12'
+    main: 'index.js'
