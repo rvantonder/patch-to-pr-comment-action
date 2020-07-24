@@ -3,7 +3,7 @@ const wtd = require("what-the-diff");
 var fs = require("fs");
 
 const ev = JSON.parse(
-  fs.readFileSync(process.env.GITHUB_EVENT_PATH, 'utf8');
+  fs.readFileSync(process.env.GITHUB_EVENT_PATH, 'utf8')
 );
 const prNum = ev.pull_request.number;
 
