@@ -19,6 +19,14 @@ const token = process.env.GITHUB_TOKEN
 
 console.log('token ' + token)
 
+owner_repo = process.env.GITHUB_REPOSITORY
+
+const [owner, repo] = owner_repo.split("/");
+
+console.log("owner: " + owner)
+
+console.log("repo: " + repo)
+
 async function run(suggestion, rangeStart, rangeEnd) {
   const open = "```suggestion";
   const close = "```";
@@ -35,8 +43,8 @@ async function run(suggestion, rangeStart, rangeEnd) {
       mediaType: {
         previews: ["comfort-fade"]
       },
-      owner: "rvantonder",
-      repo: "silly-test-repo", // TODO GITHUB_REPOSITORY https://docs.github.com/en/actions/configuring-and-managing-workflows/using-environment-variables
+      owner: owner,
+      repo: repo, // TODO GITHUB_REPOSITORY https://docs.github.com/en/actions/configuring-and-managing-workflows/using-environment-variables
       pull_number: prNum,
       body: body,
       commit_id: sha,
@@ -47,23 +55,9 @@ async function run(suggestion, rangeStart, rangeEnd) {
       line: rangeEnd,
     }
   );
-  console.log('status ' + result.status)
-  console.log('result ' + result)
-  console.log(`${result.data.length} comments found.`);
 }
 
-// get PR files
-// do comby -i, then git diff > p.patch
-// iterate patch
-
-
-// get the range of things removed (from file)
-// suggest the range of things in the "to" file, and add the + lines to the content
-
 fs.readFile("p.patch", "utf8", function(err, contents) {
-  // header makes what-the-diff happy.
-  // header = `diff --git file.txt file.txt\r\nindex 83db48f..bf269f4 100644\r\n`;
-  // contents = `${header}${contents}`;
   const diffs = wtd.parse(contents);
   console.log(diffs);
   console.log("diffs is\n" + JSON.stringify(diffs));
@@ -93,7 +87,3 @@ fs.readFile("p.patch", "utf8", function(err, contents) {
     }
   }
 });
-
-
-
-
