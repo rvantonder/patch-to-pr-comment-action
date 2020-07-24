@@ -27,13 +27,14 @@ console.log("owner: " + owner)
 
 console.log("repo: " + repo)
 
-async function run(suggestion, rangeStart, rangeEnd) {
+async function run(path, suggestion, rangeStart, rangeEnd) {
   const open = "```suggestion";
   const close = "```";
   const body = `${open}` + "\n" + suggestion + `${close}`;
 
   console.log("requesting with prNum: " + prNum)
   console.log("with sha: " + sha)
+  console.log("path: " + path)
   const result = await request(
     "POST /repos/:owner/:repo/pulls/:pull_number/comments",
     {
@@ -48,7 +49,7 @@ async function run(suggestion, rangeStart, rangeEnd) {
       pull_number: prNum,
       body: body,
       commit_id: sha,
-      path: "test.go",
+      path: path,
       side: "RIGHT",
       start_side: "RIGHT",
       start_line: rangeStart,
@@ -82,7 +83,7 @@ fs.readFile("p.patch", "utf8", function(err, contents) {
       console.log("=====")
       console.log(suggest)
       console.log("-----")
-      run(suggest, rangeStart, rangeEnd);
+      run(diffs[i].newPath, suggest, rangeStart, rangeEnd);
       console.log("sent")
     }
   }
