@@ -36,7 +36,7 @@ async function files() {
 
   console.log('diff: ' + body);
 
-  const diffs = wtd.parse(contents);
+  const diffs = wtd.parse(body);
 
   for (var i = 0; i < diffs.length; i++) {
     console.log("iterating diff file" + diffs[i].newPath)
