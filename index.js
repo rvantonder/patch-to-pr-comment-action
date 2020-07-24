@@ -32,6 +32,7 @@ async function run(path, suggestion, rangeStart, rangeEnd) {
   const close = "```";
   const body = `${open}` + "\n" + suggestion + `${close}`;
 
+  path = path.slice(path.indexOf("/")+1) // strip b/
   console.log("requesting with prNum: " + prNum)
   console.log("with sha: " + sha)
   console.log("path: " + path)
