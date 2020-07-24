@@ -1,5 +1,6 @@
 const { request } = require("@octokit/request");
 const wtd = require("what-the-diff");
+const fetch = require('node-fetch');
 var fs = require("fs");
 
 const ev = JSON.parse(
@@ -27,6 +28,22 @@ console.log("owner: " + owner)
 
 console.log("repo: " + repo)
 
+async function files() {
+    // https://github.com/rvantonder/silly-test-repo/pull/2.diff
+
+  const response = await fetch(`https://github.com/${owner}/${repo}/pull/${prNum}.diff`);
+  const body = await response.text();
+
+  console.log('diff: ' + body);
+
+  const diffs = wtd.parse(contents);
+
+  for (var i = 0; i < diffs.length; i++) {
+    console.log("iterating diff file" + diffs[i].newPath)
+    var hunks = diffs[i].hunks;
+  }
+}
+
 async function run(path, suggestion, rangeStart, rangeEnd) {
   const open = "```suggestion";
   const close = "```";
@@ -46,7 +63,7 @@ async function run(path, suggestion, rangeStart, rangeEnd) {
         previews: ["comfort-fade"]
       },
       owner: owner,
-      repo: repo, // TODO GITHUB_REPOSITORY https://docs.github.com/en/actions/configuring-and-managing-workflows/using-environment-variables
+      repo: repo,
       pull_number: prNum,
       body: body,
       commit_id: sha,
@@ -58,6 +75,8 @@ async function run(path, suggestion, rangeStart, rangeEnd) {
     }
   );
 }
+
+files();
 
 fs.readFile("p.patch", "utf8", function(err, contents) {
   const diffs = wtd.parse(contents);
