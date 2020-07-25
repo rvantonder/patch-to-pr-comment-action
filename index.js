@@ -93,7 +93,7 @@ fs.readFile("p.patch", "utf8", async function(err, contents) {
       try {
       await run(diffs[i].newPath, suggest, rangeStart, rangeEnd);
       console.log("sent");
-      } catch {}
+      } catch { console.log("BAD"); }
     }
   }
 });
