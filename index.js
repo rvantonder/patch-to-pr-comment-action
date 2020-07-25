@@ -62,7 +62,7 @@ async function run(path, suggestion, rangeStart, rangeEnd) {
   console.log('result.status ' + result.status);
 }
 
-fs.readFile("p.patch", "utf8", function(err, contents) {
+fs.readFile("p.patch", "utf8", async function(err, contents) {
   const diffs = wtd.parse(contents);
   console.log(diffs);
   console.log("diffs is\n" + JSON.stringify(diffs));
@@ -90,8 +90,10 @@ fs.readFile("p.patch", "utf8", function(err, contents) {
       }
       console.log(suggest);
       console.log("-----");
-      run(diffs[i].newPath, suggest, rangeStart, rangeEnd);
+      try {
+      await run(diffs[i].newPath, suggest, rangeStart, rangeEnd);
       console.log("sent");
+      } catch {}
     }
   }
 });
