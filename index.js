@@ -57,6 +57,8 @@ async function run(path, suggestion, rangeStart, rangeEnd) {
       line: rangeEnd,
     }
   );
+  console.log('result.data ' + result.data);
+  console.log('result.status ' + result.status);
 }
 
 fs.readFile("p.patch", "utf8", function(err, contents) {
@@ -82,6 +84,9 @@ fs.readFile("p.patch", "utf8", function(err, contents) {
       rangeEnd = rangeStart + hunks[j].oldLineCount - 1;
       console.log("suggest at: " + rangeStart + " to " + rangeEnd);
       console.log("=====");
+      if (rangeStart === rangeEnd && rangeStart === 1) {
+          rangeEnd = 2;
+      }
       console.log(suggest);
       console.log("-----");
       run(diffs[i].newPath, suggest, rangeStart, rangeEnd);
