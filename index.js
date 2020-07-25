@@ -36,6 +36,7 @@ async function run(path, suggestion, rangeStart, rangeEnd) {
   console.log("requesting with prNum: " + prNum);
   console.log("with sha: " + sha);
   console.log("path: " + path);
+  console.log("updated...");
   const result = await request(
     "POST /repos/:owner/:repo/pulls/:pull_number/comments",
     {
