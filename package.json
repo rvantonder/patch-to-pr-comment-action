@@ -19,7 +19,7 @@
   "homepage": "https://github.com/rvantonder/patch-to-pr-comment-action#readme",
   "dependencies": {
     "@octokit/request": "^5.4.7",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.7",
     "what-the-diff": "^0.6.0"
   }
 }
